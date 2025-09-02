@@ -12,28 +12,29 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@RequestMapping("/api/category")
 public class Category_controler {
 
     @Autowired
     private Category_services_imple category_services_imple;
 
-    @GetMapping("//")
+    @GetMapping("/")
 ResponseEntity<List<Category_dto>> get_all_data(){
     return ResponseEntity.ok (category_services_imple.getAllCategories());
      }
-     @PostMapping("//")
+     @PostMapping("/")
     ResponseEntity<Category_dto> post_data(@Valid @RequestBody  Category_dto category_dto ){
     return ResponseEntity.ok(category_services_imple.createCategory(category_dto));
      }
-     @PutMapping("//{id}")
-    ResponseEntity<Category_dto> update_data(@Valid @PathVariable Category_dto category_dto,@RequestBody int id){
+     @PutMapping("/{id}")
+    ResponseEntity<Category_dto> update_data(@Valid @RequestBody Category_dto category_dto,@PathVariable int id){
         return ResponseEntity.ok(category_services_imple.updateCategory(category_dto,id));
      }
-     @GetMapping("//{id}")
+     @GetMapping("/{id}")
     ResponseEntity<Category_dto> Get_data_by_id(@PathVariable int id){
         return ResponseEntity.ok(category_services_imple.getCategoryById(id));
      }
-     @DeleteMapping("//{id}")
+     @DeleteMapping("/{id}")
     ResponseEntity<Apiresponce> Delete(@PathVariable int id){
         category_services_imple.deleteCategory(id);
         return new ResponseEntity<>(new Apiresponce("Data is delete",true), HttpStatus.OK);
